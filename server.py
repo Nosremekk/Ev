@@ -7,7 +7,6 @@ from pybricks.ev3devices import Motor
 from pybricks.parameters import Port as Evport
 
 ev3 = EV3Brick()
-motora = Motor(Evport.A)
 motorc = Motor(Evport.C)
 
 try:
@@ -20,7 +19,7 @@ except Exception as e:
 PORT = 57182
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-s.bind(("192.168.44.28", PORT))
+s.bind(("192.168.44.126", PORT))
 s.listen(5)
 
 
@@ -43,7 +42,6 @@ while running:
     direction = 'forward'
 
     def stop():
-        motora.stop()
         motorc.stop()
     
 
@@ -75,7 +73,7 @@ while running:
                 stop()
             else:
                 running_event = do
-                motora.run(-1000)
+
                 motorc.run(-1000)
                 #print('Moving forward')
 
@@ -87,11 +85,11 @@ while running:
             else:
                 running_event = do
                 if direction == 'forward':
-                    motora.run(-1000)
+
                     motorc.run(-250)
                     #print('MA_speed = 750; MB_speed = 1000')
                 else:
-                    motora.run(1000)
+
                     motorc.run(250)
                     #print('MA_speed = -750; MB_speed = -1000')
 
@@ -104,11 +102,11 @@ while running:
                 running_event = do
                 if direction == 'forward':
                     motorc.run(-1000)
-                    motora.run(-250)
+
                     #print('MB_speed = 750; MA_speed = 1000')
                 else:
                     motorc.run(1000)
-                    motora.run(250)
+
                     #print('MB_speed = -750; MA_speed = -1000')
 
         elif do == 'MAB-1':
@@ -119,7 +117,6 @@ while running:
                 stop()
             else:
                 running_event = do
-                motora.run(1000)
                 motorc.run(1000)
                 #print('Moving backwards')
 
